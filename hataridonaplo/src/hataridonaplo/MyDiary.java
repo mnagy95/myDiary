@@ -9,7 +9,7 @@ import java.util.*;
 
 //http://www.dreamincode.net/forums/topic/25042-creating-a-calendar-viewer-application/
 
-public class MyDiary{
+public class MyDiary extends JFrame implements ActionListener{
 	static JLabel labelofMonth, labelofYear;
 	static JButton previousButton, nextButton;
 	static JTable tableCalendar;
@@ -66,6 +66,7 @@ public class MyDiary{
 		panelCalendar.add(previousButton);
 		panelCalendar.add(nextButton);
 		panelCalendar.add(scrollTableCalendar);
+        
 		
 		//Set bounds
 		panelCalendar.setBounds(0, 0, 500, 335);
@@ -119,10 +120,8 @@ public class MyDiary{
 		refreshCalendar (realMonth, realYear); //Refresh calendar
 		
 		
-		
-		
 		//EventsHandler event = new EventsHandler();
-		newEvent = new JLabel ("Add Information");
+		newEvent = new JLabel ("Add New Event");
 		panelCalendar.add(newEvent);
 		newEvent.setBounds(360, 20, 200, 20);
 		
@@ -132,18 +131,37 @@ public class MyDiary{
 		
 		monthOfEvent = new JLabel ("Month:");
 		panelCalendar.add(monthOfEvent);
-		monthOfEvent.setBounds(320, 180, 200, 20);
+		monthOfEvent.setBounds(320, 130, 60, 20);
 		
 		dayOfEvent = new JLabel ("Day:");
 		panelCalendar.add(dayOfEvent);
-		dayOfEvent.setBounds(320, 260, 200, 20);
+		dayOfEvent.setBounds(320, 160, 60, 20);
 		
 		choiceOfYear = new Choice();
 		for (int i=realYear-20; i<=realYear+80; i++){
 			choiceOfYear.addItem(String.valueOf(i));
 		}
 		panelCalendar.add(choiceOfYear);
-		choiceOfYear.setBounds(400, 100, 80, 20);		
+		choiceOfYear.setBounds(400, 100, 80, 20);
+		
+		choiceOfMonth = new Choice();
+		String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		for (int month = 0; month < months.length; month++){
+			choiceOfMonth.addItem(months[month]);
+		}
+		panelCalendar.add(choiceOfMonth);
+		choiceOfMonth.setBounds(400, 130, 100, 20);
+		
+		choiceOfDay = new Choice();
+		//for (int i=realYear-20; i<=realYear+80; i++){
+		//	choiceOfYear.addItem(String.valueOf(i));
+		//}
+		panelCalendar.add(choiceOfDay);
+		choiceOfDay.setBounds(400, 160, 80, 20);
+		
+		
+		//for new Event Button
+		new MyDiary().setVisible(false);
 	}
 	
 	public static void refreshCalendar(int month, int year){
@@ -236,4 +254,31 @@ public class MyDiary{
 			}
 		}
 	}
+	
+	 	public JButton newEventButton;
+
+	    public MyDiary()
+	    {
+	        
+	        newEventButton = new JButton("Events For Your Day!");
+	        newEventButton.addActionListener(this);
+	        newEventButton.setActionCommand("Open");
+	        panelCalendar.add(newEventButton);
+	        newEventButton.setBounds(320, 200, 200, 20);
+	        newEventButton.setVisible(true);
+
+	    }
+
+	    @Override
+	    public void actionPerformed(ActionEvent e)
+	    {
+	        String command = e.getActionCommand();
+
+	        if(command.equals("Open"))
+	        {
+	            dispose();
+	            new EventsHandler();
+	        }
+	    }
+
 }
