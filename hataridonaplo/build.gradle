@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'main.java.com.hataridonaplo.MyDiary'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src"]
+        }
+    }
+}
